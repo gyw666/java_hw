@@ -24,7 +24,7 @@ public class Animal {
     }
 
     public void eat(String food){
-        System.out.println("");
+        System.out.println("eat food");
     }
 
 }
