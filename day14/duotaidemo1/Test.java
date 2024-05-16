@@ -13,7 +13,13 @@ public class Test {
         Administrator a1 = new Administrator();
         a1.setAge(20);
         a1.setName("赵桐吉");
-
+        //多态无法使用子类特有的功能
+        //如需使用需要强制转换
+        /*
+        if(s instanceof Teacher t){  如果s是Teacher类型,就强转为Teacher t
+            t.uniqueFunction    //强转后再调用子类特有的功能
+        }
+         */
         register(s1);
         register(t1);
         register(a1);
