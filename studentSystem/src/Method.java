@@ -2,6 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Method {
+    private static final int ADD_NEW_STUDENT=1;
+    private static final int DELETE_STUDENT=2;
+    private static final int BROWSE_STUDENT=3;
+    private static final int SEARCH_BROWSE=4;
+    private static final int UPDATE_STUDENT=5;
+    private static final int EXIT=6;
+
     //浏览
     public static void browse(ArrayList<Student> list) {
         System.out.format("id\t\tname\tage\t\taddress\n");
@@ -136,27 +143,27 @@ public class Method {
     //功能
     public static void functions(int choose, ArrayList<Student> list) {
         switch (choose) {
-            case 1: {
+            case ADD_NEW_STUDENT: {
                 addNewStudent(list);
                 break;
             }
-            case 2:{
+            case DELETE_STUDENT:{
                 deleteStudent(list);
                 break;
             }
-            case 3: {
+            case BROWSE_STUDENT: {
                 Method.browse(list);
                 break;
             }
-            case 4:{
+            case SEARCH_BROWSE:{
                 searchBrowse(list);
                 break;
             }
-            case 5:{
+            case UPDATE_STUDENT:{
                 updateStudent(list);
                 break;
             }
-            case 6: {
+            case EXIT: {
                 System.out.println("成功退出");
                 System.exit(0);
             }

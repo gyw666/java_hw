@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         ArrayList<User> list = new ArrayList<>();
-        User u=new User("gywnb1","1","111111111111111111","11111111111");
+        User u = new User("gywnb1", "1", "111111111111111111", "11111111111");
         list.add(u);
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -14,8 +14,10 @@ public class App {
             String choice = sc.nextLine();
             switch (choice) {
                 case "1" -> {
-                    login(list);
-                    return;
+                    boolean flag = login(list);
+                    if (flag) {
+                        return;
+                    }
                 }
                 case "2" -> register(list);
                 case "3" -> forgetPassword(list);
@@ -219,7 +221,7 @@ public class App {
     }
 
 
-    private static void login(ArrayList<User> list) {
+    private static boolean login(ArrayList<User> list) {
         //用户名如果未注册，直接结束方法，并提示：用户名未注册，请先注册
         //判断验证码是否正确，如不正确，重新输入
         //再判断用户名和密码是否正确，有3次机会
@@ -228,7 +230,7 @@ public class App {
         String username = sc.nextLine();
         if (uniqueName(username, list)) {
             System.out.println("用户名未注册，请先注册");
-            return;
+            return false;
         }
         System.out.println("请输入密码");
         String password = sc.nextLine();
@@ -245,13 +247,13 @@ public class App {
                 System.out.println("输入错误，请重新输入密码，您还有" + (2 - i) + "次机会");
                 if (i == 2) {
                     System.out.println("登录失败，账号已锁定，请联系管理员");
-                    return;
+                    return false;
                 }
                 password = sc.nextLine();
             }
         }
         System.out.println("恭喜您成功登录");
-
+        return true;
 
     }
 
