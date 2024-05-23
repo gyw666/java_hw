@@ -6,14 +6,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     //记录空白方块在二维数组中的位置
+    Random r = new Random();
     int x = 0;
     int y = 0;
     int step = 0;
-    String path = "puzzlegame\\image\\animal\\animal3\\";
+
+
+    String[] choice=new String[]{"animal","girl","sport"};
+    String finalPath=choice[r.nextInt(choice.length-1)];
+
+    // String path = "puzzlegame\\image\\girl\\girl1\\";
+    String path = "puzzlegame\\image\\"+finalPath+"\\"+finalPath+r.nextInt(1,14)+"\\";
     //创建选项下面的条目对象
     JMenuItem replayItem = new JMenuItem("重新游戏");
     JMenuItem reLoginItem = new JMenuItem("重新登录");
@@ -26,6 +34,9 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     int[][] correctData = new int[4][4];
 
     private int[][] ctData() {
+        /**
+         * 生成正确答案的二维数组
+         */
         int[][] data = new int[4][4];
         int n = 1;
         for (int i = 0; i < data.length; i++) {
@@ -36,16 +47,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         }
         data[3][3] = 0;
         return data;
-    }
-
-
-    public void showArr(int[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     public GameJFrame() {
@@ -66,10 +67,12 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         this.setVisible(true);
     }
 
-
     private int[][] initData() {
+        /**
+         * 生成数据随机的二维数组
+         */
         int[] tempArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-        Random r = new Random();
+
         for (int i = 0; i < tempArr.length; i++) {
             int index = r.nextInt(tempArr.length - 1);
             int temp = tempArr[i];
@@ -84,6 +87,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             for (int j = 0; j < arr[i].length; j++) {
                 arr[i][j] = tempArr[index];
                 index++;
+                //找到元素为0的坐标
                 if (arr[i][j] == 0) {
                     x = i;
                     y = j;
@@ -100,14 +104,15 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         //清空原本已经出现的所有图片
         this.getContentPane().removeAll();
 
+        //判断是否通关
         if (victory()) {
-            ImageIcon win = new ImageIcon("D:\\java\\IdeaProjects\\puzzlegame\\image\\win.png");
+            ImageIcon win = new ImageIcon("puzzlegame\\image\\win.png");
             JLabel winjlabel = new JLabel(win);
             winjlabel.setBounds(203, 283, win.getIconWidth(), win.getIconHeight());
             this.getContentPane().add(winjlabel);
         }
 
-
+        //添加计步组件
         JLabel stepCount = new JLabel("步数:" + step);
         stepCount.setBounds(50, 30, 100, 20);
         this.getContentPane().add(stepCount);
@@ -128,6 +133,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             }
         }
 
+        //添加背景图片
         ImageIcon bg = new ImageIcon("puzzlegame\\image\\background.png");
         JLabel background = new JLabel(bg);
         background.setBounds(40, 40, bg.getIconWidth(), bg.getIconHeight());
@@ -194,7 +200,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == 65) {
+        if (code == 'A') {
             //把界面中所有图片删除
             this.getContentPane().removeAll();
             //加载完整图片
@@ -218,8 +224,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         if (victory()) {
             return;
         }
-
-
         //对上下左右进行判断
         //左:37
         //上:38
@@ -274,7 +278,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 step++;
                 initImage();
             }
-        } else if (code == 65) {
+        } else if (code == 'A') {
             initImage();
         } else if (code == 'W') {
 //            showArr(data);
@@ -283,7 +287,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
             //清空原本已经出现的所有图片
             this.getContentPane().removeAll();
-            ImageIcon win = new ImageIcon("D:\\java\\IdeaProjects\\puzzlegame\\image\\win.png");
+            ImageIcon win = new ImageIcon("puzzlegame\\image\\win.png");
             JLabel winjlabel = new JLabel(win);
             winjlabel.setBounds(203, 283, win.getIconWidth(), win.getIconHeight());
             this.getContentPane().add(winjlabel);
@@ -338,6 +342,8 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         Object obj = e.getSource();
         if (obj == replayItem) {
             System.out.println("重新游戏");
+            finalPath=choice[r.nextInt(choice.length-1)];
+            path = "puzzlegame\\image\\"+finalPath+"\\"+finalPath+r.nextInt(1,14)+"\\";
             data = initData();
             step = 0;
             initImage();

@@ -20,7 +20,6 @@ public class LoginJFrame extends JFrame {
 
 
 
-
         //让界面显示出来
         this.setVisible(true);
     }
