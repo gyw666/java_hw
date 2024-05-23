@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
@@ -26,6 +25,11 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     JMenuItem replayItem = new JMenuItem("重新游戏");
     JMenuItem reLoginItem = new JMenuItem("重新登录");
     JMenuItem closeItem = new JMenuItem("关闭游戏");
+    JMenuItem girlItem = new JMenuItem("美女");
+    JMenuItem animalItem = new JMenuItem("动物");
+    JMenuItem sportItem = new JMenuItem("运动");
+
+
 
     JMenuItem accountItem = new JMenuItem("作者微信");
 
@@ -151,12 +155,21 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         //创建菜单上面两个选项的对象(功能,关于我们)
         JMenu functionJMenu = new JMenu("功能");
         JMenu aboutJMenu = new JMenu("关于我们");
+        JMenu changeJMenu = new JMenu("更换图片");
+
+        //为更换图片添加item
+        changeJMenu.add(girlItem);
+        changeJMenu.add(animalItem);
+        changeJMenu.add(sportItem);
 
 
         //将每个选项下的条目添加到选项中
+        functionJMenu.add(changeJMenu);
         functionJMenu.add(replayItem);
         functionJMenu.add(reLoginItem);
         functionJMenu.add(closeItem);
+
+
 
         aboutJMenu.add(accountItem);
 
@@ -165,6 +178,9 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         reLoginItem.addActionListener(this);
         closeItem.addActionListener(this);
         accountItem.addActionListener(this);
+        girlItem.addActionListener(this);
+        animalItem.addActionListener(this);
+        sportItem.addActionListener(this);
 
 
         //将菜单中的两个选项添加到菜单中
@@ -323,7 +339,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             return;
 
         }
-        System.out.println("x=" + x + ",y=" + y);
     }
 
     public boolean victory() {
@@ -342,8 +357,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         Object obj = e.getSource();
         if (obj == replayItem) {
             System.out.println("重新游戏");
-            finalPath=choice[r.nextInt(choice.length-1)];
-            path = "puzzlegame\\image\\"+finalPath+"\\"+finalPath+r.nextInt(1,14)+"\\";
             data = initData();
             step = 0;
             initImage();
@@ -357,7 +370,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             System.exit(0);
 
         } else if (obj == accountItem) {
-            System.out.println("公众号");
+            System.out.println("作者微信");
             ImageIcon wx = new ImageIcon("puzzlegame\\image\\wx.png");
             JDialog wxDialog = new JDialog();
             JLabel wxLabel = new JLabel(wx);
@@ -369,6 +382,18 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             wxDialog.setModal(true);//弹框不关闭无法操作其他界面
             wxDialog.setVisible(true);
 
+        } else if (obj==girlItem) {
+            path = "puzzlegame\\image\\"+"girl"+"\\"+"girl"+r.nextInt(1,14)+"\\";
+            step=0;
+            initImage();
+        } else if (obj==animalItem) {
+            path = "puzzlegame\\image\\"+"animal"+"\\"+"animal"+r.nextInt(1,14)+"\\";
+            step=0;
+            initImage();
+        } else if (obj==sportItem) {
+            path = "puzzlegame\\image\\"+"sport"+"\\"+"sport"+r.nextInt(1,14)+"\\";
+            step=0;
+            initImage();
         }
     }
 }
