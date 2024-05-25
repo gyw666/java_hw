@@ -98,7 +98,7 @@ public class LoginJFrame extends JFrame implements ActionListener, KeyListener, 
 
         //生成验证码
         JLabel passcodeJlabel=new JLabel(passcode);
-        passcodeJlabel.setBounds(300, 256, 50, 30);
+        passcodeJlabel.setBounds(300, 256, 80, 30);
         this.getContentPane().add(passcodeJlabel);
 
         //添加登录按钮
@@ -181,6 +181,8 @@ public class LoginJFrame extends JFrame implements ActionListener, KeyListener, 
             registerImage=new ImageIcon("puzzlegame\\image\\login\\注册按下.png");
             System.out.println("注册按下");
             initImage();
+            new RegisterJFrame();
+            this.setVisible(false);
         }
 
     }
